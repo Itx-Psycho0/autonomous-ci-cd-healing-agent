@@ -9,11 +9,20 @@ export default function SuccessRateTrend({ thisMonth, lastMonth, detailed }) {
 
     const maxRate = Math.max(...chartData.map(d => d.rate), 100);
 
+    // Ensure styles object is defined
+    const safeStyles = styles || {};
+    const headerStyle = safeStyles.header || {};
+    const titleStyle = safeStyles.title || {};
+    const summaryRowStyle = safeStyles.summaryRow || {};
+    const summaryCardStyle = safeStyles.summaryCard || {};
+    const summaryLabelStyle = safeStyles.summaryLabel || {};
+    const summaryValueStyle = safeStyles.summaryValue || {};
+
     if (!detailed) {
         return (
             <div>
-                <div style={styles.header}>
-                    <h3 style={styles.title}>Success Rate Trend</h3>
+                <div style={headerStyle}>
+                    <h3 style={titleStyle}>Success Rate Trend</h3>
                 </div>
                 <ResponsiveContainer width="100%" height={200}>
                     <BarChart data={chartData} barSize={60}>
@@ -92,24 +101,24 @@ export default function SuccessRateTrend({ thisMonth, lastMonth, detailed }) {
                 </BarChart>
             </ResponsiveContainer>
 
-            <div style={styles.summaryRow}>
-                <div style={styles.summaryCard}>
-                    <div style={styles.summaryLabel}>This Month</div>
-                    <div style={{ ...styles.summaryValue, color: 'var(--green)' }}>{Math.round(thisMonth)}%</div>
+            <div style={summaryRowStyle}>
+                <div style={summaryCardStyle}>
+                    <div style={summaryLabelStyle}>This Month</div>
+                    <div style={{ ...summaryValueStyle, color: 'var(--green)' }}>{Math.round(thisMonth)}%</div>
                 </div>
-                <div style={styles.summaryCard}>
-                    <div style={styles.summaryLabel}>Last Month</div>
-                    <div style={{ ...styles.summaryValue, color: 'var(--orange)' }}>{Math.round(lastMonth)}%</div>
+                <div style={summaryCardStyle}>
+                    <div style={summaryLabelStyle}>Last Month</div>
+                    <div style={{ ...summaryValueStyle, color: 'var(--orange)' }}>{Math.round(lastMonth)}%</div>
                 </div>
-                <div style={styles.summaryCard}>
-                    <div style={styles.summaryLabel}>Improvement</div>
-                    <div style={{ ...styles.summaryValue, color: improvement >= 0 ? 'var(--green)' : 'var(--red)' }}>
+                <div style={summaryCardStyle}>
+                    <div style={summaryLabelStyle}>Improvement</div>
+                    <div style={{ ...summaryValueStyle, color: improvement >= 0 ? 'var(--green)' : 'var(--red)' }}>
                         {improvement >= 0 ? '+' : ''}{improvement.toFixed(0)}%
                     </div>
                 </div>
-                <div style={styles.summaryCard}>
-                    <div style={styles.summaryLabel}>Average</div>
-                    <div style={{ ...styles.summaryValue, color: 'var(--blue)' }}>{avgRate}%</div>
+                <div style={summaryCardStyle}>
+                    <div style={summaryLabelStyle}>Average</div>
+                    <div style={{ ...summaryValueStyle, color: 'var(--blue)' }}>{avgRate}%</div>
                 </div>
             </div>
         </div>
